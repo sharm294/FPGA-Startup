@@ -24,4 +24,3 @@ Deploy the container with the usb (lsusb) and xdma<num> (according to sourceme<n
 In the container also make an /opt/program/ directory and move the clear bitstream there (with the name clear.bit)
 - ``ssh <CONTAINER ADDRESS> 'mkdir -p /opt/program'``
 - ``scp v1_clear.bit <CONTAINER ADDRESS>:/opt/program``
--
