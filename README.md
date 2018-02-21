@@ -2,9 +2,9 @@
 
 First make all the dependent binaries
 
-- ``cd drivers``
+- ``cd driver``
 - ``make``
-- ``cd ../test``
+- ``cd ../tests``
 - ``make``
 
 Then program the FPGAs for the first time:
