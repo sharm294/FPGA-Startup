@@ -32,11 +32,19 @@ if [ ! -c /dev/xdma${2}_c2h_0 ]; then
     exit 1
 fi
 
+if [ ! -f ./sourceme${2}.sh ]; then
+    echo "sourceme${2}.sh not found in this directory"
+    exit 1
+fi
 
 lxc config device add $1 fpga$2 unix-char path=/dev/bus/usb/$3/$4 mode=666
 lxc config device add $1 xdma${2}-user unix-char path=/dev/xdma${2}_user mode=666
 lxc config device add $1 xdma${2}-c2h unix-char path=/dev/xdma${2}_c2h_0 mode=666
 lxc config device add $1 xdma${2}-h2c unix-char path=/dev/xdma${2}_h2c_0 mode=666
+
+cp sourceme${2}.sh sourceme.sh
+lxc file push ./sourceme.sh $1/opt/util/
+rm sourceme.sh 
 
 echo "All devices added successfully"
 exit 0
