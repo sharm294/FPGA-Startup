@@ -2,6 +2,7 @@
 VIO_ADDR=0x90000
 CONTAINER_ADDR=("localhost" "localhost")
 BOARD=adm-8v3
+VIVADO=vivado_lab
 STATIC_BITSTREAM=static_v1.bit
 CLEAR_BITSTREAM=v1_clear.bit
 ILA_STATIC=ila_v1.ltx
@@ -17,7 +18,7 @@ while read -r line
 do
     i=$((i+1))
     name=$line
-    vivado -mode batch -source prog_util/write_probe.tcl -tclargs localhost:3121/xilinx_tcf/Digilent/$name 0000000$i $ILA_STATIC 
+    $VIVADO -mode batch -source prog_util/write_probe.tcl -tclargs localhost:3121/xilinx_tcf/Digilent/$name 0000000$i $ILA_STATIC 
 done < "$filename"
 
 
