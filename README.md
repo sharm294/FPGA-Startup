@@ -1,26 +1,12 @@
-# FPGAHypervisorStartupScripts
+# FPGA-Startup
 
-First make all the dependent binaries
-
-- ``cd driver``
-- ``make``
-- ``cd ../tests``
-- ``make``
-
-Then program the FPGAs for the first time:
-- ``source programShells_first.sh``
-
-Reboot FPGAs for the first time to enumerate:
-- ``sudo reboot``
-
-Load drivers:
-- ``insmod driver/xdma.ko``
-
-Then make the sourcemes':
-: ``source writeSourceme.sh``
-
-Deploy the container with the usb (lsusb) and xdma<num> (according to sourceme<num>.sh) to appropriate container. This needs to be scripted better... Maybe make a script to deploy :)
-
-In the container also make an /opt/program/ directory and move the clear bitstream there (with the name clear.bit)
-- ``ssh <CONTAINER ADDRESS> 'mkdir -p /opt/program'``
-- ``scp v1_clear.bit <CONTAINER ADDRESS>:/opt/program``
+##Quick Initial Start
+``make``  
+``./write_serials.sh``  
+``./get_static.sh``  
+``./program_fpgas.sh``  
+``sudo reboot``  
+``make load``  
+``./write_source.sh``  
+``sudo ./udev.sh``  
+Then edit ``/etc/udev/rules.d/53-fpga-usb.rules`` using the existing example as a template for all FPGAs on the machine.

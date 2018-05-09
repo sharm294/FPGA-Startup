@@ -1,0 +1,15 @@
+#from xdma Makefile
+*.o
+*.o.d
+*.depend
+*.ko
+*.ko.unsigned
+*.mod.c
+*.symvers
+*.save
+*.bak
+*.bin
+modules.order
+vivado*.log
+vivado*.jou
+.Xil/

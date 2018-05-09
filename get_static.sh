@@ -1,3 +1,14 @@
-wget -q http://www.eecg.toronto.edu/~tarafda1/hypervisors/$BOARD/$STATIC_BITSTREAM -O $STATIC_BITSTREAM
-wget -q http://www.eecg.toronto.edu/~tarafda1/hypervisors/$BOARD/$CLEAR_BITSTREAM -O $CLEAR_BITSTREAM
-wget -q http://www.eecg.toronto.edu/~tarafda1/hypervisors/$BOARD/$ILA_STATIC -O $ILA_STATIC
+#!/bin/bash
+
+###############################################################################
+#This script gets the appropriate bitstreams and ILA files for the given board. 
+###############################################################################
+
+source fpga.conf
+
+wget -q $WEBSITE/$BOARD/$STATIC_BITSTREAM_NAME \
+	-O $BITSTREAM_DIR/$STATIC_BITSTREAM
+wget -q $WEBSITE/$BOARD/$CLEAR_BITSTREAM_NAME \
+	-O $BITSTREAM_DIR/$CLEAR_BITSTREAM
+wget -q $WEBSITE/$BOARD/$STATIC_ILA_NAME \
+	-O $BITSTREAM_DIR/$STATIC_ILA

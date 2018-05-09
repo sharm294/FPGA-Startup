@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{serial}=="210308A129B9", ATTRS{manufacturer}=="Digilent", ENV{DEVTYPE}=="usb_device", RUN+="/usr/bin/python /etc/udev/scripts/udev.py 210308A129B9 $attr{busnum} $attr{devnum}"

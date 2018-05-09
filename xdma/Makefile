@@ -6,7 +6,7 @@ KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 PWD       := $(shell pwd)
 
 ROOT := $(dir $(M))
-XILINXINCLUDE := -I$(ROOT)../include -I$(ROOT)/include
+XILINXINCLUDE := -I$(ROOT)/include
 
 GCCVERSION = $(shell gcc -dumpversion | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$$/&00/')
 
@@ -19,6 +19,13 @@ install: all
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
 	depmod -a
 	install -m 644 10-xcldma.rules /etc/udev/rules.d
+
+load:
+	sudo insmod ./xdma.ko
+
+unload:
+	sudo rm -f /dev/xdma*
+	sudo rmmod ./xdma.ko
 
 clean:
 	rm -rf *.o *.o.d *~ core .depend .*.cmd *.ko *.ko.unsigned *.mod.c .tmp_versions *.symvers .#* *.save *.bak Modules.* modules.order Module.markers *.bin
