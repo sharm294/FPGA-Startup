@@ -21,6 +21,7 @@ clean:
 
 load:
 	sudo insmod ./$(TARGET_MODULE).ko
+	bash init.sh
 
 unload:
 	sudo rm -f /dev/$(TARGET_MODULE)

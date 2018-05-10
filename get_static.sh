@@ -6,6 +6,10 @@
 
 source fpga.conf
 
+if [[ ! -d $BITSTREAM_DIR/ ]]; then
+	mkdir $BITSTREAM_DIR
+fi
+
 wget -q $WEBSITE/$BOARD/$STATIC_BITSTREAM_NAME \
 	-O $BITSTREAM_DIR/$STATIC_BITSTREAM
 wget -q $WEBSITE/$BOARD/$CLEAR_BITSTREAM_NAME \

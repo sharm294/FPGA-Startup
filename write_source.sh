@@ -7,6 +7,7 @@
 ################################################################################
 
 source fpga.conf
+source /opt/Xilinx/$VIVADO_PATH/$VIVADO_VERSION/settings64.sh
 
 if [[ ! -f $FPGA_SERIAL.conf ]]; then
 	echo "$FPGA_SERIAL.conf doesn't exist. Run write_serials.sh to generate one"
@@ -43,7 +44,7 @@ while IFS="," read -r serial staticBit clearBit ila pci clearEn; do
 		PCI_ENABLE=$pci
 	fi
 	if [[ $PCI_ENABLE == "1" ]]; then
-		cmd="$TESTS_DIR/reg_rw /dev/xdma"$i"_user $VIO_ADDR"
+		cmd="$FPGA_UTIL_DIR/reg_rw /dev/xdma"$i"_user $VIO_ADDR"
 		eval $cmd  
 		output="$(eval $cmd | grep 'Read 32-bit')"
 		vio_val=${output##* } 

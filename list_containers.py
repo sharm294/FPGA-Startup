@@ -8,14 +8,14 @@ def list_containers(serial, fileName):
 	
 	for container in containers:
 		try:
-            fpgaSerialKey = container.config["user.fpga-serial"]
-        except KeyError:
-            continue #no FPGAs in this container
-        
-        for fpgaSerial in fpgaSerialKey.split(' '):
-            if serial == fpgaSerial: #this container has this FPGA
-            	f.write(container.name)
-            	
+			fpgaSerialKey = container.config["user.fpga-serial"]
+		except KeyError:
+			continue #no FPGAs in this container
+		
+		for fpgaSerial in fpgaSerialKey.split(' '):
+			if serial == fpgaSerial: #this container has this FPGA
+				f.write(container.name)
+				
 	f.close()
 
 if __name__ == "__main__":

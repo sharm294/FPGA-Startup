@@ -9,3 +9,4 @@
 mkdir /etc/udev/scripts
 mv /udev/*.py /etc/udev/scripts
 mv /udev/53-fpga-usb.rules /etc/udev/rules.d/
+python /etc/udev/scripts/write_json.py

@@ -46,9 +46,6 @@ if [[ $PCI_ENABLE == "1" ]]; then
 	if [[ -e $sourceFile ]]; then	
 		source $sourceFile
 		echo 1 > /sys/bus/pci/devices/$FPGA_PCI/remove
-	else
-		echo "No sourceme*.sh file found containing this serial"
-		exit -1
 	fi
 fi
 
@@ -58,8 +55,10 @@ $VIVADO -mode batch -source $FPGA_UTIL_DIR/open_target.tcl \
 
 if [[ $PCI_ENABLE == "1" ]]; then
 	echo 1 > /sys/bus/pci/rescan
-	echo $FPGA_PCI > /sys/bus/pci/drivers/xdma/unbind
-	echo $FPGA_PCI > /sys/bus/pci/drivers/xdma/bind
+	if [[ -e $sourceFile ]]; then
+		echo $FPGA_PCI > /sys/bus/pci/drivers/xdma/unbind
+		echo $FPGA_PCI > /sys/bus/pci/drivers/xdma/bind
+	fi
 fi
 
 if [[ $CLEAR_ENABLE == "1" ]]; then

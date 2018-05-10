@@ -1,26 +1,19 @@
 include fpga.conf
 
-all: xdma rescan-fpga reg_rw
-
-xdma:
-	$(MAKE) -C $(XDMA_DIR) all
-
-rescan-fpga:
-	$(MAKE) -C $(RESCAN_DIR) all
-
-reg_rw:
-	$(MAKE) -C $(FPGA_UTIL_DIR) all
+all:
+    $(MAKE) -C $(XDMA_DIR) -f Makefile
+    $(MAKE) -C $(RESCAN_DIR) -f Makefile
+    $(MAKE) -C $(FPGA_UTIL_DIR) -f Makefile
 
 load:
-	$(MAKE) -C $(XDMA_DIR) load
-	$(MAKE) -C $(RESCAN_DIR) load
+    $(MAKE) -C $(XDMA_DIR) -f Makefile load
+    $(MAKE) -C $(RESCAN_DIR) -f Makefile load
 
 unload:
-	$(MAKE) -C $(XDMA_DIR) unload
-	$(MAKE) -C $(RESCAN_DIR) unload
+    $(MAKE) -C $(XDMA_DIR) -f Makefile unload
+    $(MAKE) -C $(RESCAN_DIR) -f Makefile unload
 
 clean:
-	unload
-	$(MAKE) -C $(XDMA_DIR) clean
-	$(MAKE) -C $(RESCAN_DIR) clean
-	$(MAKE) -C $(FPGA_UTIL_DIR) clean
+    $(MAKE) -C $(XDMA_DIR) -f Makefile clean
+    $(MAKE) -C $(RESCAN_DIR) -f Makefile clean
+    $(MAKE) -C $(FPGA_UTIL_DIR) -f Makefile clean
