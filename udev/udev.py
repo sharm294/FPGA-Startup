@@ -57,7 +57,7 @@ def readd_usb(serialArg, M, m):
 								oldMajor = oldPath.split('/')[-2]
 								oldMinor = oldPath.split('/')[-1]
 								oldLXDdevice = "/var/lib/lxd/devices/" + container.name + "/unix.dev-bus-usb-" + oldMajor + "-" + oldMinor
-				if not os.path.exists(oldLXDdevice):
+								if not os.path.exists(oldLXDdevice):
 									nodeCmd = "mknod " + oldLXDdevice + " c 244 003"
 									os.system(nodeCmd)
 								container.devices = devices
