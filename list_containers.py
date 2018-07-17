@@ -1,3 +1,11 @@
+################################################################################
+# This script takes two arguments: a FPGA serial number and a file name. It 
+# writes the names of all containers that contain that serial number under the 
+# user.fpga-serial key to the file.
+#
+# This script is called by program_fpga.sh
+################################################################################
+
 from pylxd import Client as lxdClient
 import sys
 

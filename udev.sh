@@ -6,7 +6,7 @@
 # serial numbers of the FPGAs in this machine.
 ################################################################################
 
-if [[ ! -d /etc/udev/scripts]]; then
+if [[ ! -d /etc/udev/scripts ]]; then
 	mkdir /etc/udev/scripts
 fi
 mv ./udev/*.py /etc/udev/scripts

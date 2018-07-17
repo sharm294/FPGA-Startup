@@ -1,13 +1,25 @@
+################################################################################
+# This script writes a json file that has information about the FPGAs connected 
+# via USB on this machine.
+################################################################################
+
 import json #for json operations
 import re #for ouput matching
 import subprocess #for lsusb
 
 from udev_common import jsonFile #json file name
 
+#this command outputs the bus path, vendor information and ID on one line,
+#and the FPGA's serial number on the next line. I match against these using 
+#regex expressions.
+df = subprocess.check_output("lsusb -v -d 0x0403: | \
+    grep -e ^Bus -e iSerial", shell=True)
+
 #construct dictionary with FPGA information
-re_device = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<id>\w+:\w+)\s(?P<tag>.+)$", re.I)
+re_device = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).\
+    +ID\s(?P<id>\w+:\w+)\s(?P<tag>.+)$", re.I)
 re_serial = re.compile("\s*iSerial\s*\d (?P<serial>\w+)$", re.I)
-df = subprocess.check_output("lsusb -v -d 0x0403: | grep -e ^Bus -e iSerial", shell=True)
+
 devices = []
 lastLine = None
 for i in df.split('\n'):
