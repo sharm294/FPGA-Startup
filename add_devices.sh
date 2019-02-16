@@ -33,8 +33,8 @@ fi
 major=$(lsusb -v -d 0x0403: | awk -F' +' '/^Bus/{print $2}' | grep -o '[0-9]\+' | sed -n ${count}p)
 minor=$(lsusb -v -d 0x0403: | awk -F' +' '/^Bus/{print $4}' | grep -o '[0-9]\+' | sed -n ${count}p)
 
-lxc config device add $container fpga${index} unix-char path=/dev/bus/usb/$major/$minor mode=666
-lxc config set $container user.fpga-serial $serial
+lxc config device add "$container" fpga"${index}" unix-char path=/dev/bus/usb/"$major"/"$minor" mode=666
+lxc config set "$container" user.fpga-serial "$serial"
 if [[ -e /dev/xdma${index}_user ]]; then
     lxc config device add $container xdma${index}-user unix-char path=/dev/xdma${index}_user mode=666
     lxc config device add $container xdma${index}-c2h unix-char path=/dev/xdma${index}_c2h_0 mode=666
@@ -42,9 +42,9 @@ if [[ -e /dev/xdma${index}_user ]]; then
 fi
 
 if [[ -e sourceme${index}.sh ]]; then
-    cp sourceme${index}.sh sourceme.sh
-    lxc file push ./sourceme.sh $container/opt/util/
-    lxc exec $container -- chown root:$USER_GROUP /opt/util/sourceme.sh
+    cp sourceme"${index}".sh sourceme.sh
+    lxc file push ./sourceme.sh "$container"/opt/util/
+    lxc exec "$container" -- chown root:"$USER_GROUP" /opt/util/sourceme.sh
     rm sourceme.sh
 fi
 
