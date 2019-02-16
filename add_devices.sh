@@ -7,25 +7,25 @@ if [ "$#" != 3 ]; then
 fi
 
 #check if container exists
-if lxc info $container 2>&1 | grep -q 'error'; then
+if lxc info "$container" 2>&1 | grep -q 'error'; then
     echo "Container $container not found"
     exit 1
 fi
 
 source fpga.conf
 
-container=$container
+container=$1
 serial=$2
 index=$3
 
-count=-1
-lsusb -v -d 0x0403: | awk -F' +' '/iSerial/{print $4}' | while read -r line; do
-	((count++))
-    if [[ $line == $serial ]]; then
+count=0
+while read -r line; do
+        count=$((count+1))
+    if [[ "$line" == "$serial" ]]; then
         break
-done
-
-if [[ count == -1 ]]; then
+    fi
+done < <(lsusb -v -d 0x0403: | awk -F' +' '/iSerial/{print $4}')
+if [[ "$count" == 0 ]]; then
     echo "No FPGA matching the serial $serial found."
     exit 1
 fi
@@ -38,7 +38,7 @@ lxc config set $container user.fpga-serial $serial
 if [[ -e /dev/xdma${index}_user ]]; then
     lxc config device add $container xdma${index}-user unix-char path=/dev/xdma${index}_user mode=666
     lxc config device add $container xdma${index}-c2h unix-char path=/dev/xdma${index}_c2h_0 mode=666
-    lxc config device add $container xdma${index}-h2c unix-char path=/dev/xdma${index}_h2c_0 mode=666
+    lxc config device add $container xdma${index}-h2c unix-char path=/dev/xdma"${index}"_h2c_0 mode=666
 fi
 
 if [[ -e sourceme${index}.sh ]]; then
