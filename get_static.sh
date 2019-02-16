@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###############################################################################
 #This script gets the appropriate bitstreams and ILA files for the given board. 

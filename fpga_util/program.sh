@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 VIVADO_PATH=/opt/Xilinx/Vivado/2017.2/bin/vivado
 CLEAR_BIT_PATH=/opt/program/clear.bit

@@ -13,3 +13,4 @@ modules.order
 vivado*.log
 vivado*.jou
 .Xil/
+bitstreams/

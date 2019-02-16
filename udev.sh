@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ################################################################################
 # This script copies over the udev python scripts to the udev folder. Note: 

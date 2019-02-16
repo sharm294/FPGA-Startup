@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ################################################################################
 # This script probes the FPGAs (that should have shells programmed already), 
@@ -14,7 +14,7 @@ if [[ ! -f $FPGA_SERIAL.conf ]]; then
 	exit -1
 fi
 
-if [[ $# != 0 && $# != 1 ]]; then
+if [[ "$#" != 0 && "$#" != 1 ]]; then
 	echo "Usage: script [ila]"
 	exit -1
 fi

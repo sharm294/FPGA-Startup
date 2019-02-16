@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ################################################################################
 # This script programs all FPGAs listed in $FPGA_SERIAL.conf with the bitstream
