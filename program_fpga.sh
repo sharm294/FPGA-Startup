@@ -11,7 +11,7 @@ if [[ $# != 1 && $# != 5 ]]; then
 fi
 
 source fpga.conf
-source /opt/Xilinx/$VIVADO/$VIVADO_VERSION/settings64.sh
+source /opt/Xilinx/$VIVADO_PATH/$VIVADO_VERSION/settings64.sh
 
 #check if the FPGA serial argument exists on this computer
 serialFile=$(grep -Elir --include=$FPGA_SERIAL "$1")
