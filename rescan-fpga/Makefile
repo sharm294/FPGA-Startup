@@ -13,6 +13,7 @@ else
 all : 
 # run kernel build system to make module
 	sed -i '/PATH_SUBSTITUTION/!b;n;cstatic const char string_path[] = "'$(shell pwd)'/kernel.sh";' device_file.c
+	sed -i '/PATH_SUBSTITUTION/!b;n;crepoPath="'$(shell pwd)'/kernel.sh";' kernel.sh
 	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules
 
 clean:
@@ -28,4 +29,3 @@ unload:
 	sudo rmmod ./$(TARGET_MODULE).ko
 
 endif
-

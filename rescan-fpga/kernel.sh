@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-scriptPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-repoPath=${scriptPath%"FPGA-Startup"*}
-repoPath=$repoPath"FPGA-Startup/"
+# PATH_SUBSTITUTION: note this comment must remain as-is
+repoPath="/home/savi/"
 
-file=grep --include="sourceme*.sh" -rlw $repoPath -e $1
+file=$(grep --include="sourceme*.sh" -rlw $repoPath -e $1)
 if [[ ! -f $file ]]; then
 	return -100
 else

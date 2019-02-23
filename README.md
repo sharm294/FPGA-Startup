@@ -14,13 +14,12 @@ On a brand new machine:
 ``make``  
 ``./write_serials.sh``  
 ``./get_static.sh``  
-``./program_fpgas.sh`` (run as root)
+``./program_fpgas.sh`` (run as root)  
 ``sudo reboot``  
-``make``
-``make load``
-``./write_source.sh`` (run as root)
-``./add_devices CONTAINER SERIAL INDEX``
-``sudo ./udev.sh``
+``make load``  
+``./write_source.sh`` (run as root)  
+``./add_devices CONTAINER SERIAL INDEX``  
+``sudo ./udev.sh``  
 Then edit ``/etc/udev/rules.d/53-fpga-usb.rules`` using the existing example as a template for all FPGAs on the machine. You need to change the serial numbers to match those on the machine.
 
 ## Files

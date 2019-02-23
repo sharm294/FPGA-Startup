@@ -17,3 +17,6 @@ clean:
 	$(MAKE) -C $(XDMA_DIR) -f Makefile clean
 	$(MAKE) -C $(RESCAN_DIR) -f Makefile clean
 	$(MAKE) -C $(FPGA_UTIL_DIR) -f Makefile clean
+	@rm -rf vivado*.jou
+	@rm -rf vivado*.log
+	@rm sourceme*.sh
