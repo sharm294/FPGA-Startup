@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 VIVADO_PATH=/opt/Xilinx/Vivado/2017.2/bin/vivado
-CLEAR_BIT_PATH=/opt/program/clear.bit
+CLEAR_BIT_PATH=/opt/util/program/clear.bit
 
 if [ ! -f $VIVADO_PATH ]; then
   echo "Vivado not found"
@@ -14,7 +14,7 @@ if [ ! -f $CLEAR_BIT_PATH ]; then
 fi
 
 if [ $# -ne 2 ]; then
-  echo $0 requires two arguments bitstream and clearing bitstream
+  echo $0 requires two arguments: bitstream and clearing bitstream
   exit 1
 fi
 
@@ -39,7 +39,7 @@ fi
 # Decouple PR region
 user="_user"
 app=$XDMA$user
-sudo ../tests/reg_rw $app 0x80000 w 0x1 
+./reg_rw $app 0x80000 w 0x1 
 
 # Program clearing bitstream
 vivado -mode batch -source open_target.tcl -tclargs $CLEAR_BIT_PATH
@@ -52,7 +52,7 @@ mv $CLEAR_BIT_PATH ${CLEAR_BIT_PATH}.old
 cp $2 $CLEAR_BIT_PATH
 
 # Couple PR region
-sudo ../tests/reg_rw $app 0x80000 w 0x0
+./reg_rw $app 0x80000 w 0x0
 
 rm vivado*.log
 rm vivado*.jou

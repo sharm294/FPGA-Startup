@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #input validation
-if [ "$#" != 3 ]; then
-    echo "syntax: ./script CONTAINER SERIAL INDEX"
+if [ "$#" != 4 ]; then
+    echo "syntax: ./script CONTAINER SERIAL INDEX ECE1373"
     exit 1
 fi
 
@@ -17,6 +17,7 @@ source fpga.conf
 container=$1
 serial=$2
 index=$3
+ece1373=$4
 
 count=0
 while read -r line; do
@@ -57,13 +58,17 @@ fi
 
 if [[ -e sourceme${index}.sh ]]; then
     cp sourceme${index}.sh sourceme.sh
-    lxc exec $container -- mkdir -p /opt/util/program
-    lxc file push ./fpga_util/open_target.tcl $container/opt/util/program/
-    lxc file push ./fpga_util/program.sh $container/opt/util/program/
-    lxc file push ./fpga_util/reg_rw $container/opt/util/program/
-    lxc file push ./bitstreams/clear.bit $container/opt/util/program/
-    lxc file push ./sourceme.sh $container/opt/util/
-    lxc exec $container -- chown -R root:$USER_GROUP /opt/util/
+    if [[ $ece1373 == "TRUE" ]]; then
+        lxc exec $container -- mkdir -p /opt/util/program
+        lxc file push ./fpga_util/open_target.tcl $container/opt/util/program/
+        lxc file push ./fpga_util/program.sh $container/opt/util/program/
+        lxc file push ./fpga_util/reg_rw $container/opt/util/program/
+        lxc file push ./bitstreams/clear.bit $container/opt/util/program/
+        lxc file push ./sourceme.sh $container/opt/util/
+        lxc exec $container -- chown -R root:$USER_GROUP /opt/util/
+    else
+        lxc file push ./sourceme.sh $container/opt/
+    fi
     rm sourceme.sh
 fi
 
