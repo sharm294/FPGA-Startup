@@ -39,20 +39,22 @@ fi
 # Decouple PR region
 user="_user"
 app=$XDMA$user
-./reg_rw $app 0x80000 w 0x1 
+/opt/util/program/reg_rw $app 0x80000 w 0x1 
 
 # Program clearing bitstream
-vivado -mode batch -source open_target.tcl -tclargs $CLEAR_BIT_PATH
+vivado -mode batch -source /opt/util/program/open_target.tcl -tclargs $CLEAR_BIT_PATH
 
 # Program new partial bitstream
-vivado -mode batch -source open_target.tcl -tclargs $1
+vivado -mode batch -source /opt/util/program/open_target.tcl -tclargs $1
 
 # Move clear bitstream to replace old one
 mv $CLEAR_BIT_PATH ${CLEAR_BIT_PATH}.old
 cp $2 $CLEAR_BIT_PATH
+chown :reg-users ${CLEAR_BIT_PATH}.old
+chown :reg-users $CLEAR_BIT_PATH
 
 # Couple PR region
-./reg_rw $app 0x80000 w 0x0
+/opt/util/program/reg_rw $app 0x80000 w 0x0
 
 rm vivado*.log
 rm vivado*.jou
