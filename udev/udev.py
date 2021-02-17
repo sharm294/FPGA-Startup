@@ -10,6 +10,7 @@ import os #for path checking and shell commands
 import json #for json parsing
 import sys #for command line arguments
 from pylxd import Client as lxdClient
+import write_json
 from udev_common import jsonFile #the filename
 
 def update_path(container, serialArg, fpgas, major, minor):
@@ -69,7 +70,7 @@ def readd_usb(serialArg, M, m):
 	if os.path.exists(jsonFile):
 		fpgas = json.load(open(jsonFile))
 	else:
-		import write_json
+		write_json.write_json()
 		fpgas = json.load(open(jsonFile))
 
 	for container in containers:

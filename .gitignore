@@ -14,3 +14,9 @@ vivado*.log
 vivado*.jou
 .Xil/
 bitstreams/
+
+*.cmd
+fpga_serials*
+reg_rw
+*.mod
+*.pyc
